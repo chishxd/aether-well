@@ -24,11 +24,16 @@
 		}
 
 		coinBalance -= 1;
-
 		wishes.unshift(currentWish);
-
 		currentWish = '';
+
+		playPop = true;
+		setTimeout(() => {
+			playPop = false;
+		}, 300);
 	}
+
+	let playPop = $state(false);
 
 	$effect(() => {
 		localStorage.setItem('aether-well-coins', JSON.stringify(coinBalance));
@@ -39,31 +44,40 @@
 	});
 </script>
 
-<!-- Below this lies the HTML for my website -->
-
 <div
 	class="flex h-screen w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
 	style="background-image: url('/background.jpg');"
 >
-	<!-- This is the Heading -->
 	<header class="mb-10 text-center">
 		<h1 class="pt-8 text-center font-cinzel text-5xl text-white">The Aether Well</h1>
-		<h2 class="text-xl text-slate-200">
-			✨ Coins: <span class="font-bold text-amber-500">{coinBalance}</span>
+
+		<!-- Personal Notes here! -->
+		<!-- mx: margin X, mt: margin-top-->
+		<h2
+			class="mx-auto
+			mt-2 w-fit rounded-lg
+			 bg-slate-900/30 p-4 text-xl
+			 text-slate-200 ring-1 ring-amber-400
+			  backdrop-blur-md"
+		>
+			✨ Coins:
+			<span class="inline-block font-bold text-amber-500" class:coin-pop={playPop}>
+				{coinBalance}
+			</span>
 		</h2>
 	</header>
 
-	<!-- These are all the Wishes!! -->
 	<div class="mb-10 text-center">
-		<h2 class="mb-6 text-3xl font-bold text-slate-200 uppercase tracking-widest">Wishes</h2>
-
-		<ol class="mx-auto max-h-[5r0vh] max-w-2xl overflow-y-auto">
+		<!-- tracking-widest sets font-spacing-->
+		<h2 class="mb-6 text-3xl font-bold tracking-widest text-slate-200 uppercase">Wishes</h2>
+		<!-- Only 30% of screen is wishes :sob: I think it's a sweet spot though -->
+		<ol class="mx-auto max-h-[30vh] max-w-2xl overflow-y-auto">
 			{#each wishes as wish}
 				<li
 					in:fade
 					class="mb-2 rounded-lg bg-slate-900/30
-				 p-4 text-slate-100
-				 backdrop-blur-md"
+				 	p-4 text-slate-100
+				 	backdrop-blur-md"
 				>
 					{wish}
 				</li>
@@ -71,13 +85,15 @@
 		</ol>
 	</div>
 
-	<!-- This container has input and 'Make Wish' Button -->
 	<div class="flex gap-2">
+		<!-- SOOO many classes~~~ I'll list how some of them work just for myself-->
+		<!-- w-full: sets width to 100% of it's container's size... i.e width:100%
+		  appeareance-none: remove default CSS by browser-->
 		<input
 			class="w-full appearance-none rounded-lg
-			border border-slate-500/50
-			bg-slate-900/30 p-3
-			text-white backdrop-blur-md
+			border
+			border-slate-500/50 bg-slate-900/30 p-3 text-white
+			backdrop-blur-md
 			placeholder:text-slate-400
 			focus:ring-2 focus:ring-amber-400
 			focus:outline-none"
@@ -90,7 +106,6 @@
 				}
 			}}
 		/>
-
 		<button
 			class="rounded-lg bg-amber-400 p-3 font-bold text-black
 				transition-all duration-200
