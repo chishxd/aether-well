@@ -67,7 +67,7 @@
 
 	function scrollInputIntoView() {
 		setTimeout(() => {
-			const inputElement = document.getElementById('textarea');
+			const inputElement = document.getElementById('wish-input');
 			if (inputElement) {
 				inputElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 			}
