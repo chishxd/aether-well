@@ -73,7 +73,7 @@
 		<!-- tracking-widest sets font-spacing-->
 		<h2 class="mb-6 text-3xl font-bold tracking-widest text-slate-200 uppercase">Wishes</h2>
 		<!-- Only 30% of screen is wishes :sob: I think it's a sweet spot though -->
-		<ol class="mx-auto max-h-[35vh] max-w-2xl overflow-y-auto">
+		<ol class="flex-1 overflow-y-auto">
 			{#each wishes as wish (wish)}
 				<li
 					in:fly={{ y: -20, duration: 400 }}
