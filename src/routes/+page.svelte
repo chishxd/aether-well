@@ -139,7 +139,7 @@
 	</div>
 
 	<!-- This container stores the input area and Wish button -->
-	<div class="relative flex gap-2">
+	<div class="relative flex gap-2" id="input-bar">
 		{#if showTooltip}
 			<div
 				in:fly={{ y: 10, duration: 200 }}
