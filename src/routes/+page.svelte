@@ -34,6 +34,16 @@
 		}, 300);
 	}
 
+	function handleKeyDown(event) {
+		// If the user presses enter WITHOUT pressign shift
+		if (event.key === 'Enter' && !event.shiftKey) {
+			// Prevent the default operation on enter, i.e add a new line.
+			event.preventDefault();
+
+			makeWish();
+		}
+	}
+
 	let playPop = $state(false);
 
 	$effect(() => {
@@ -78,9 +88,9 @@
 				<li
 					in:fly={{ y: -20, duration: 400 }}
 					animate:flip={{ duration: 300 }}
-					class="mb-2 rounded-lg bg-slate-900/30
-				 	p-4 text-slate-100
-				 	backdrop-blur-md"
+					class="mb-2 rounded-lg bg-slate-900/30 p-4
+				 	break-words whitespace-pre-wrap
+				 	text-slate-100 backdrop-blur-md"
 				>
 					{wish}
 				</li>
@@ -92,23 +102,20 @@
 		<!-- SOOO many classes~~~ I'll list how some of them work just for myself-->
 		<!-- w-full: sets width to 100% of it's container's size... i.e width:100%
 		  appeareance-none: remove default CSS by browser-->
-		<input
-			class="w-full appearance-none rounded-lg
-			border
-			border-slate-500/50 bg-slate-900/30 p-3 text-white
+		<textarea
+			class="w-full resize-none appearance-none
+			rounded-lg
+			border border-slate-500/50 bg-slate-900/30 p-3
+			text-white
 			backdrop-blur-md
-			placeholder:text-slate-400
-			focus:ring-2 focus:ring-amber-400
-			focus:outline-none"
+			placeholder:text-slate-400 focus:ring-2
+			focus:ring-amber-400 focus:outline-none"
+			rows="1"
 			bind:value={currentWish}
 			type="text"
 			placeholder="Enter a wish..."
-			onkeydown={(e) => {
-				if (e.key === 'Enter') {
-					makeWish();
-				}
-			}}
-		/>
+			onkeydown={handleKeyDown}
+		></textarea>
 		<button
 			class="rounded-lg bg-amber-400 p-3 font-bold text-black
 				transition-all duration-200
