@@ -66,7 +66,11 @@
 	}
 
 	function scrollInputIntoView() {
-		// Remove the scroll functionality since we're using dvh
+		isInputFocused = true;
+	}
+
+	function handleBlur() {
+		isInputFocused = false;
 	}
 
 	function handleKeyDown(event) {
@@ -80,6 +84,7 @@
 	}
 
 	let playPop = $state(false);
+	let isInputFocused = $state(false);
 
 	$effect(() => {
 		localStorage.setItem('aether-well-coins', JSON.stringify(coinBalance));
@@ -134,7 +139,12 @@
 	</div>
 
 	<!-- This container stores the input area and Wish button -->
-	<div class="relative flex gap-2" id="input-bar">
+	<div
+		class="relative flex gap-2 transition-transform duration-300 ease-out"
+		class:translate-y-0={!isInputFocused}
+		class:-translate-y-[50vh]={isInputFocused}
+		id="input-bar"
+	>
 		{#if showTooltip}
 			<div
 				in:fly={{ y: 10, duration: 200 }}
@@ -169,6 +179,7 @@
 			placeholder="Enter a wish..."
 			onkeydown={handleKeyDown}
 			onfocus={scrollInputIntoView}
+			onblur={handleBlur}
 		></textarea>
 		<button
 			class="rounded-lg bg-amber-400 p-3 font-bold text-black
