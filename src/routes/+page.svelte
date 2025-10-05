@@ -4,8 +4,15 @@
 	import { flip } from 'svelte/animate';
 
 	let coinBalance = $state(10);
-	let wishes = $state(['My First Wish', 'Get my framework 12']);
+
 	let currentWish = $state('');
+
+	let showTooltip = $state(false);
+
+	let wishes = $state([
+		{ id: 1, text: 'My First Wish' },
+		{ id: 2, text: 'Get my framework 12' }
+	]);
 
 	onMount(() => {
 		const savedCoins = localStorage.getItem('aether-well-coins');
@@ -29,12 +36,27 @@
 	});
 
 	async function makeWish() {
-		if (currentWish.trim() === '' || coinBalance === 0) {
+		if (currentWish.trim() === '') {
 			return;
 		}
 
+		if (coinBalance === 0) {
+			showTooltip = true;
+
+			setTimeout(() => {
+				showTooltip = false;
+			}, 2000);
+
+			return;
+		}
+
+		const newWish = {
+			id: Date.now(),
+			text: currentWish
+		};
+
 		coinBalance -= 1;
-		wishes.unshift(currentWish);
+		wishes.unshift(newWish);
 		currentWish = '';
 
 		playPop = true;
@@ -93,7 +115,7 @@
 		<h2 class="mb-6 text-3xl font-bold tracking-widest text-slate-200 uppercase">Wishes</h2>
 		<!-- Only 30% of screen is wishes :sob: I think it's a sweet spot though -->
 		<ol class="flex-1 overflow-y-auto">
-			{#each wishes as wish (wish)}
+			{#each wishes as wish (wish.id)}
 				<li
 					in:fly={{ y: -20, duration: 400 }}
 					animate:flip={{ duration: 300 }}
@@ -101,13 +123,29 @@
 				 	break-words whitespace-pre-wrap
 				 	text-slate-100 backdrop-blur-md"
 				>
-					{wish}
+					{wish.text}
 				</li>
 			{/each}
 		</ol>
 	</div>
 
-	<div class=" flex gap-2">
+	<!-- This container stores the input area and Wish button -->
+	<div class="relative flex gap-2">
+		{#if showTooltip}
+			<div
+				in:fly={{ y: 10, duration: 200 }}
+				out:fly={{ y: 10, duration: 200 }}
+				class="absolute -top-14 left-1/2
+		-translate-x-1/2 rounded-md
+		bg-slate-900 px-3
+		py-2 text-sm
+		font-medium whitespace-nowrap text-white
+		ring-1 ring-slate-600"
+			>
+				You are out of coins. Return Tomorrow to get some coins!
+			</div>
+		{/if}
+
 		<!-- SOOO many classes~~~ I'll list how some of them work just for myself-->
 		<!-- w-full: sets width to 100% of it's container's size... i.e width:100%
 		  appeareance-none: remove default CSS by browser-->
@@ -131,6 +169,14 @@
 				hover:bg-amber-500
 				disabled:cursor-not-allowed disabled:bg-slate-600"
 			onclick={makeWish}
+			onmouseenter={() => {
+				if (coinBalance === 0) {
+					showTooltip = true;
+				}
+			}}
+			onmouseleave={() => {
+				showTooltip = false;
+			}}
 			disabled={coinBalance === 0}>Make Wish</button
 		>
 	</div>
