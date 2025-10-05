@@ -16,6 +16,15 @@
 		if (savedWishes) {
 			wishes = JSON.parse(savedWishes);
 		}
+
+		// Logic for Daily Login thing.
+		const currentDate = new Date().toDateString();
+		const lastVisit = localStorage.getItem('aether-well-last-visit');
+
+		if (lastVisit && lastVisit !== currentDate) {
+			coinBalance += 5;
+		}
+		localStorage.setItem('aether-well-last-visit', currentDate);
 	});
 
 	async function makeWish() {
