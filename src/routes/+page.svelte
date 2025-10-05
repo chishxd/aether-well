@@ -65,6 +65,15 @@
 		}, 300);
 	}
 
+	function scrollInputIntoView() {
+		setTimeout(() => {
+			const inputElement = document.getElementById('input-bar');
+			if (inputElement) {
+				inputElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+			}
+		}, 100);
+	}
+
 	function handleKeyDown(event) {
 		// If the user presses enter WITHOUT pressign shift
 		if (event.key === 'Enter' && !event.shiftKey) {
@@ -87,7 +96,7 @@
 </script>
 
 <div
-	class="flex h-screen w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
+	class="flex h-svh w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
 	style="background-image: url('/background.jpg');"
 >
 	<header class="mb-10 text-center">
@@ -130,7 +139,7 @@
 	</div>
 
 	<!-- This container stores the input area and Wish button -->
-	<div class="relative flex gap-2">
+	<div class="relative flex gap-2" id="input-bar">
 		{#if showTooltip}
 			<div
 				in:fly={{ y: 10, duration: 200 }}
@@ -162,6 +171,7 @@
 			type="text"
 			placeholder="Enter a wish..."
 			onkeydown={handleKeyDown}
+			onfocus={scrollInputIntoView}
 		></textarea>
 		<button
 			class="rounded-lg bg-amber-400 p-3 font-bold text-black
