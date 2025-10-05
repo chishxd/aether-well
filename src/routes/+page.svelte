@@ -87,7 +87,7 @@
 </script>
 
 <div
-	class="flex h-screen w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
+	class="flex h-svh w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
 	style="background-image: url('/background.jpg');"
 >
 	<header class="mb-10 text-center">
