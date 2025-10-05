@@ -9,10 +9,7 @@
 
 	let showTooltip = $state(false);
 
-	let wishes = $state([
-		{ id: 1, text: 'My First Wish' },
-		{ id: 2, text: 'Get my framework 12' }
-	]);
+	let wishes = $state([]);
 
 	onMount(() => {
 		const savedCoins = localStorage.getItem('aether-well-coins');
@@ -140,20 +137,29 @@
 	<div class="mx-auto mb-10 flex w-full max-w-2xl flex-1 flex-col overflow-hidden text-center">
 		<!-- tracking-widest sets font-spacing-->
 		<h2 class="mb-6 text-3xl font-bold tracking-widest text-slate-200 uppercase">Wishes</h2>
-		<!-- Only 30% of screen is wishes :sob: I think it's a sweet spot though -->
-		<ol class="flex-1 overflow-y-auto">
-			{#each wishes as wish (wish.id)}
-				<li
-					in:fly={{ y: -20, duration: 400 }}
-					animate:flip={{ duration: 300 }}
-					class="mb-2 rounded-lg bg-slate-900/30 p-4
+
+		{#if wishes.length > 0}
+			<ol class="flex-1 overflow-y-auto">
+				{#each wishes as wish (wish.id)}
+					<li
+						in:fly={{ y: -20, duration: 400 }}
+						animate:flip={{ duration: 300 }}
+						class="mb-2 rounded-lg bg-slate-900/30 p-4
 				 	break-words whitespace-pre-wrap
 				 	text-slate-100 backdrop-blur-md"
-				>
-					{wish.text}
-				</li>
-			{/each}
-		</ol>
+					>
+						{wish.text}
+					</li>
+				{/each}
+			</ol>
+		{:else}
+			<div
+				class="flex flex-1 flex-col items-center justify-center rounded-lg bg-slate-900/30 p-8 text-center backdrop-blur-md"
+			>
+				<p class="font-cinzel text-2xl font-bold text-slate-200">The well is quiet.</p>
+				<p class="mt-3 text-lg text-amber-400/80 italic">Cast your first hope into the stars.</p>
+			</div>
+		{/if}
 	</div>
 
 	<!-- This container stores the input area and Wish button -->
