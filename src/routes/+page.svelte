@@ -33,6 +33,23 @@
 			coinBalance += 5;
 		}
 		localStorage.setItem('aether-well-last-visit', currentDate);
+
+		// Handle keyboard offset with Visual Viewport API
+		if (window.visualViewport) {
+			const updateKeyboardOffset = () => {
+				const viewportHeight = window.visualViewport.height;
+				const windowHeight = window.innerHeight;
+				keyboardOffset = windowHeight - viewportHeight;
+			};
+
+			window.visualViewport.addEventListener('resize', updateKeyboardOffset);
+			window.visualViewport.addEventListener('scroll', updateKeyboardOffset);
+
+			return () => {
+				window.visualViewport.removeEventListener('resize', updateKeyboardOffset);
+				window.visualViewport.removeEventListener('scroll', updateKeyboardOffset);
+			};
+		}
 	});
 
 	async function makeWish() {
@@ -85,6 +102,7 @@
 
 	let playPop = $state(false);
 	let isInputFocused = $state(false);
+	let keyboardOffset = $state(0);
 
 	$effect(() => {
 		localStorage.setItem('aether-well-coins', JSON.stringify(coinBalance));
@@ -141,8 +159,7 @@
 	<!-- This container stores the input area and Wish button -->
 	<div
 		class="relative flex gap-2 transition-transform duration-300 ease-out"
-		class:translate-y-0={!isInputFocused}
-		class:-translate-y-[50vh]={isInputFocused}
+		style="transform: translateY(-{keyboardOffset}px)"
 		id="input-bar"
 	>
 		{#if showTooltip}
