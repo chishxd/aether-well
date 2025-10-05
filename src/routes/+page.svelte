@@ -67,11 +67,11 @@
 
 	function scrollInputIntoView() {
 		setTimeout(() => {
-			const inputElement = document.getElementById('input-bar');
+			const inputElement = document.getElementById('textarea');
 			if (inputElement) {
-				inputElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+				inputElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 			}
-		}, 100);
+		}, 300);
 	}
 
 	function handleKeyDown(event) {
@@ -160,6 +160,7 @@
 		<!-- w-full: sets width to 100% of it's container's size... i.e width:100%
 		  appeareance-none: remove default CSS by browser-->
 		<textarea
+			id="wish-input"
 			class="w-full resize-none appearance-none
 			rounded-lg
 			border border-slate-500/50 bg-slate-900/30 p-3
