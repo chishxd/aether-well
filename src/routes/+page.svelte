@@ -150,6 +150,7 @@
 		py-2 text-sm
 		font-medium whitespace-nowrap text-white
 		ring-1 ring-slate-600"
+				id="input-bar"
 			>
 				You are out of coins. Return Tomorrow to get some coins!
 			</div>
