@@ -68,7 +68,8 @@
 		</h2>
 	</header>
 
-	<div class="mb-10 text-center">
+	<!-- Container to Store Wishes title and all wishes -->
+	<div class="mx-auto mb-10 flex w-full max-w-2xl flex-1 flex-col overflow-hidden text-center">
 		<!-- tracking-widest sets font-spacing-->
 		<h2 class="mb-6 text-3xl font-bold tracking-widest text-slate-200 uppercase">Wishes</h2>
 		<!-- Only 30% of screen is wishes :sob: I think it's a sweet spot though -->
@@ -87,7 +88,7 @@
 		</ol>
 	</div>
 
-	<div class="flex gap-2">
+	<div class=" flex gap-2">
 		<!-- SOOO many classes~~~ I'll list how some of them work just for myself-->
 		<!-- w-full: sets width to 100% of it's container's size... i.e width:100%
 		  appeareance-none: remove default CSS by browser-->
