@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
+	import { flip } from 'svelte/animate';
 
 	let coinBalance = $state(10);
 	let wishes = $state(['My First Wish', 'Get my framework 12']);
@@ -71,10 +72,11 @@
 		<!-- tracking-widest sets font-spacing-->
 		<h2 class="mb-6 text-3xl font-bold tracking-widest text-slate-200 uppercase">Wishes</h2>
 		<!-- Only 30% of screen is wishes :sob: I think it's a sweet spot though -->
-		<ol class="mx-auto max-h-[30vh] max-w-2xl overflow-y-auto">
-			{#each wishes as wish}
+		<ol class="mx-auto max-h-[35vh] max-w-2xl overflow-y-auto">
+			{#each wishes as wish (wish)}
 				<li
-					in:fade
+					in:fly={{ y: -20, duration: 400 }}
+					animate:flip={{ duration: 300 }}
 					class="mb-2 rounded-lg bg-slate-900/30
 				 	p-4 text-slate-100
 				 	backdrop-blur-md"
