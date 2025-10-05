@@ -66,12 +66,7 @@
 	}
 
 	function scrollInputIntoView() {
-		setTimeout(() => {
-			const inputElement = document.getElementById('wish-input');
-			if (inputElement) {
-				inputElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-			}
-		}, 300);
+		// Remove the scroll functionality since we're using dvh
 	}
 
 	function handleKeyDown(event) {
@@ -96,7 +91,7 @@
 </script>
 
 <div
-	class="flex h-svh w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
+	class="flex h-dvh w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
 	style="background-image: url('/background.jpg');"
 >
 	<header class="mb-10 text-center">
