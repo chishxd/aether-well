@@ -65,6 +65,15 @@
 		}, 300);
 	}
 
+	function scrollInputIntoView() {
+		setTimeout(() => {
+			const inputElement = document.getElementById('textarea');
+			if (inputElement) {
+				inputElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			}
+		}, 300);
+	}
+
 	function handleKeyDown(event) {
 		// If the user presses enter WITHOUT pressign shift
 		if (event.key === 'Enter' && !event.shiftKey) {
@@ -87,7 +96,7 @@
 </script>
 
 <div
-	class="flex h-screen w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
+	class="flex h-svh w-screen flex-col justify-between bg-cover bg-center p-4 md:p-8"
 	style="background-image: url('/background.jpg');"
 >
 	<header class="mb-10 text-center">
@@ -130,7 +139,7 @@
 	</div>
 
 	<!-- This container stores the input area and Wish button -->
-	<div class="relative flex gap-2">
+	<div class="relative flex gap-2" id="input-bar">
 		{#if showTooltip}
 			<div
 				in:fly={{ y: 10, duration: 200 }}
@@ -150,6 +159,7 @@
 		<!-- w-full: sets width to 100% of it's container's size... i.e width:100%
 		  appeareance-none: remove default CSS by browser-->
 		<textarea
+			id="wish-input"
 			class="w-full resize-none appearance-none
 			rounded-lg
 			border border-slate-500/50 bg-slate-900/30 p-3
@@ -162,6 +172,7 @@
 			type="text"
 			placeholder="Enter a wish..."
 			onkeydown={handleKeyDown}
+			onfocus={scrollInputIntoView}
 		></textarea>
 		<button
 			class="rounded-lg bg-amber-400 p-3 font-bold text-black
